@@ -1,0 +1,72 @@
+Exercise 3: Linux problem Solving
+
+Step 1: Logged into the provided machine using Public IP & Private key.
+
+step 2: Verified whether the redis installed or not using  below command
+  
+Command: redis-server --version
+ output    :  Redis server v=3.0.6 sha=00000000:0 malloc=jemalloc-3.6.0 bits=64 build=7785291a3d2152db 
+ 
+Step 3: Checked redis is running or not using below Command
+
+        command :redis-cli ping
+        output : Could not connect to Redis at 127.0.0.1:6379: Connection refused
+        
+Step 4: Tried starting the redis server using
+ 
+tamilvanan@tamilvanan-lnx:~$ redis-server
+23589:C 25 Mar 10:54:12.505 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.con                                                                                             f
+23589:M 25 Mar 10:54:12.505 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._
+           _.-``__ ''-._
+      _.-``    `.  `_.  ''-._           Redis 3.0.6 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23589
+  `-._    `-._  `-./  _.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |           http://redis.io
+  `-._    `-._`-.__.-'_.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |
+  `-._    `-._`-.__.-'_.-'    _.-'
+      `-._    `-.__.-'    _.-'
+          `-._        _.-'
+              `-.__.-'
+
+23589:M 25 Mar 10:54:12.512 # WARNING: The TCP backlog setting of 511 cannot be  enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+23589:M 25 Mar 10:54:12.512 # Server started, Redis version 3.0.6
+23589:M 25 Mar 10:54:12.512 # WARNING overcommit_memory is set to 0! Background  save may fail under low memory condition. To fix this issue add 'vm.overcommit_m                                                                                             emory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.ove                                                                                             rcommit_memory=1' for this to take effect.
+23589:M 25 Mar 10:54:12.512 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues wit                                                                                             h Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transpar                                                                                             ent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to reta                                                                                             in the setting after a reboot. Redis must be restarted after THP is disabled.
+23589:M 25 Mar 10:54:12.512 * The server is now ready to accept connections on port 6379
+
+Step 5:   Reloading the system output and tried to redis-server
+ command :   sudo systemctl daemon-reload
+ command :  sudo systemctl status  redis
+
+● redis-server.service - Advanced key-value store
+   Loaded: loaded (/lib/systemd/system/redis-server.service; enabled; vendor preset: enabled)
+   Active: active (running) since Thu 2021-03-25 15:35:03 UTC; 52s ago
+     Docs: http://redis.io/documentation,
+           man:redis-server(1)
+  Process: 21241 ExecStopPost=/bin/run-parts --verbose /etc/redis/redis-server.post-down.d (code=exited, status=0/SUCCESS)
+  Process: 21236 ExecStop=/bin/kill -s TERM $MAINPID (code=exited, status=0/SUCCESS)
+  Process: 21233 ExecStop=/bin/run-parts --verbose /etc/redis/redis-server.pre-down.d (code=exited, status=0/SUCCESS)
+  Process: 21265 ExecStartPost=/bin/run-parts --verbose /etc/redis/redis-server.post-up.d (code=exited, status=0/SUCCESS)
+  Process: 21260 ExecStart=/usr/bin/redis-server /etc/redis/redis.conf (code=exited, status=0/SUCCESS)
+  Process: 21248 ExecStartPre=/bin/run-parts --verbose /etc/redis/redis-server.pre-up.d (code=exited, status=0/SUCCESS)
+ Main PID: 21264 (redis-server)
+    Tasks: 3
+   Memory: 6.7M
+      CPU: 57ms
+   CGroup: /system.slice/redis-server.service
+           └─21264 /usr/bin/redis-server 127.0.0.1:6379
+
+
+step 6: Verified uing the ping again :
+	command :redis-cli ping 
+	output :PONG
+
+
+   Now redis is up and running
