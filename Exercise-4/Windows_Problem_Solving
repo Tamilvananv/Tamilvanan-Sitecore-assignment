@@ -1,0 +1,13 @@
+Exercise 4: Windows problem solving
+
+Step 1: tried login http://localhost/ and it resulted an execption of HTTP Status Code 503: The server is currently unavaiable.
+
+Step 2: Search for iss in the search window terminal and click in Internet Information Services Manager.
+
+Step 3: Click on the app and expand the view.
+
+Step 4: Click on the site and add application option ,there you can check the existing application pool
+step 5: Click in the application pool , We could see a stoped default app pool with different identity.
+Step 6: right click on that default app pool and change the identity option the under Processmodel tab click ok.
+Step 7: Click in default app pool and start the default app pool. 
+Step 8: Try to refresh http://localhost/. Now it is successfull
